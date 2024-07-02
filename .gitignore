@@ -1,0 +1,70 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+jspm_packages/
+dist/
+out/
+build/
+
+# TypeScript compiled files
+*.tsbuildinfo
+*.tscache
+*.tscache/
+
+# Typescript
+*.d.ts
+
+# Optional eslint cache
+.eslintcache
+
+# dotenv environment variables file
+.env
+
+# Production
+*.log
+*.tsbuildinfo
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Temporary
+.pnpm-debug.log
+.yarn-integrity
+.env.bak
+
+# Visual Studio Code
+.vscode/
+.history/# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

@@ -8,7 +8,13 @@ import {
   TableInstance,
   TableState,
 } from "react-table";
-import { Box, Table, TableContainer, TextField } from "@mui/material";
+import {
+  Box,
+  Table,
+  TableContainer,
+  TextField,
+  Typography,
+} from "@mui/material";
 import BaseTableBody from "./BaseTableBody";
 import BaseTableHead from "./BaseTableHeader";
 import Loader from "../Loader";
@@ -21,6 +27,9 @@ interface BaseTableProps<T extends object> {
 
 function BaseTable<T extends object>(props: BaseTableProps<T>) {
   const { columns, data, loading } = props;
+
+  const isEmpty = data?.length === 0;
+  const hideResults = loading || isEmpty;
 
   const {
     getTableProps,
@@ -44,6 +53,17 @@ function BaseTable<T extends object>(props: BaseTableProps<T>) {
     setGlobalFilter(value);
   };
 
+  const render = () => {
+    let component = <></>;
+    if (loading) {
+      component = <Loader />;
+    } else if (data.length === 0) {
+      component = <Typography variant="h5">No results found</Typography>;
+    }
+
+    return component;
+  };
+
   return (
     <>
       <TextField
@@ -55,7 +75,7 @@ function BaseTable<T extends object>(props: BaseTableProps<T>) {
       <TableContainer>
         <Table {...getTableProps()}>
           <BaseTableHead headerGroups={headerGroups} />
-          {loading ? null : (
+          {hideResults ? null : (
             <BaseTableBody
               getTableBodyProps={getTableBodyProps}
               rows={rows}
@@ -63,11 +83,9 @@ function BaseTable<T extends object>(props: BaseTableProps<T>) {
             />
           )}
         </Table>
-        {loading ? (
-          <Box margin={5}>
-            <Loader />
-          </Box>
-        ) : null}
+        <Box display="flex" justifyContent="center" mt={2}>
+          {render()}
+        </Box>
       </TableContainer>
     </>
   );

@@ -6,10 +6,11 @@ import { SearchResults } from "../types/types";
 
 interface ResultsTableProps {
   data: SearchResults[];
+  loading?: boolean;
 }
 
 const ResultsTable = (props: ResultsTableProps) => {
-  const { data } = props;
+  const { data, loading } = props;
 
   const columns: Column<SearchResults>[] = React.useMemo(
     () => [
@@ -54,7 +55,7 @@ const ResultsTable = (props: ResultsTableProps) => {
     []
   );
 
-  return <BaseTable columns={columns} data={data} />;
+  return <BaseTable columns={columns} data={data} loading={loading} />;
 };
 
 export default ResultsTable;

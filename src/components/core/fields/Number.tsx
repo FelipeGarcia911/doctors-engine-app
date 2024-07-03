@@ -3,7 +3,7 @@ import TextFied from "@mui/material/TextField";
 
 interface NumberFieldProps {
   label: string;
-  value?: number | undefined;
+  value?: number | undefined  | null;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
 }

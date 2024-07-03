@@ -1,48 +1,28 @@
 import React, { useState } from "react";
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 
 import TextField from "./core/fields/Text";
 import NumberField from "./core/fields/Number";
 
-import {
-  SearchParams,
-  SearchResults,
-  SearchResultsAPIResponse,
-} from "../types/types";
+import { SearchParams } from "../types/types";
 
-import { SearchDoctor } from "../services/SearchDoctor";
+import Button from "./core/Button";
 
 interface SearchFormProps {
-  onSearchResults: (results: SearchResults[]) => void;
+  onSubmit: (payload: SearchParams) => void;
+  loading?: boolean;
 }
 
 const SearchForm = (props: SearchFormProps) => {
-  const { onSearchResults } = props;
+  const { onSubmit, loading } = props;
 
-  const [firstName, setFirstName] = useState<string | undefined>();
-  const [lastName, setLastName] = useState<string | undefined>();
-  const [country, setCountry] = useState<string | undefined>();
-  const [city, setCity] = useState<string | undefined>();
-  const [state, setState] = useState<string | undefined>();
-  const [number, setNumber] = useState<number | undefined>();
-  const [error, setError] = useState<string | undefined>();
-
-  const getPayload = () => {
-    const payload: SearchParams = {
-      ...{ ...(number && { number: number.toString() }) },
-      ...{ ...(firstName && { first_name: firstName }) },
-      ...{ ...(lastName && { last_name: lastName }) },
-      ...{ ...(country && { country }) },
-      ...{ ...(city && { city }) },
-    };
-
-    return payload;
-  };
-
-  const handleOnSuccess = (response: SearchResultsAPIResponse) => {
-    onSearchResults(response.results);
-    setError(undefined);
-  };
+  const [firstName, setFirstName] = useState<string | null>();
+  const [lastName, setLastName] = useState<string | null>();
+  const [country, setCountry] = useState<string | null>();
+  const [city, setCity] = useState<string | null>();
+  const [state, setState] = useState<string | null>();
+  const [number, setNumber] = useState<number | null>();
+  const [error, setError] = useState<string | null>();
 
   const validate = (payload: SearchParams) => {
     let result = true;
@@ -60,18 +40,19 @@ const SearchForm = (props: SearchFormProps) => {
       setError("Please fill at least one field");
       return;
     }
+    onSubmit && onSubmit(payload);
+  };
 
-    try {
-      const response = await SearchDoctor(payload);
-      if (response) {
-        handleOnSuccess(response);
-      } else {
-        setError("No results found");
-      }
-    } catch (error) {
-      console.error("Error handleOnSubmit:", error);
-      setError("An error occurred");
-    }
+  const getPayload = () => {
+    const payload: SearchParams = {
+      ...{ ...(number && { number: number.toString() }) },
+      ...{ ...(firstName && { first_name: firstName }) },
+      ...{ ...(lastName && { last_name: lastName }) },
+      ...{ ...(country && { country }) },
+      ...{ ...(city && { city }) },
+    };
+
+    return payload;
   };
 
   return (
@@ -124,9 +105,9 @@ const SearchForm = (props: SearchFormProps) => {
         </Grid>
         <Grid item xs={12}>
           <Button
-            variant="contained"
-            color="primary"
             onClick={handleOnSubmit}
+            loading={loading}
+            variant="contained"
             fullWidth
           >
             Search

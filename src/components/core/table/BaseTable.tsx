@@ -8,23 +8,20 @@ import {
   TableInstance,
   TableState,
 } from "react-table";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TableSortLabel,
-  TextField,
-} from "@mui/material";
+import { Box, Table, TableContainer, TextField } from "@mui/material";
+import BaseTableBody from "./BaseTableBody";
+import BaseTableHead from "./BaseTableHeader";
+import Loader from "../Loader";
 
 interface BaseTableProps<T extends object> {
   columns: Column<T>[];
   data: T[];
+  loading?: boolean;
 }
 
-function BaseTable<T extends object>({ columns, data }: BaseTableProps<T>) {
+function BaseTable<T extends object>(props: BaseTableProps<T>) {
+  const { columns, data, loading } = props;
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -50,45 +47,27 @@ function BaseTable<T extends object>({ columns, data }: BaseTableProps<T>) {
   return (
     <>
       <TextField
-        label="Search"
-        variant="outlined"
+        disabled={loading}
+        label="Search Results"
         onChange={handleFilterChange}
-        style={{ marginBottom: "1rem" }}
+        variant="outlined"
       />
       <TableContainer>
         <Table {...getTableProps()}>
-          <TableHead>
-            {headerGroups.map((headerGroup: any) => (
-              <TableRow {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column: any) => (
-                  <TableCell
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                  >
-                    {column.render("Header")}
-                    <TableSortLabel
-                      active={column.isSorted}
-                      direction={column.isSortedDesc ? "desc" : "asc"}
-                    />
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
-          </TableHead>
-          <TableBody {...getTableBodyProps()}>
-            {rows.map((row: any) => {
-              prepareRow(row);
-              return (
-                <TableRow {...row.getRowProps()}>
-                  {row.cells.map((cell: any) => (
-                    <TableCell {...cell.getCellProps()}>
-                      {cell.render("Cell")}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              );
-            })}
-          </TableBody>
+          <BaseTableHead headerGroups={headerGroups} />
+          {loading ? null : (
+            <BaseTableBody
+              getTableBodyProps={getTableBodyProps}
+              rows={rows}
+              prepareRow={prepareRow}
+            />
+          )}
         </Table>
+        {loading ? (
+          <Box margin={5}>
+            <Loader />
+          </Box>
+        ) : null}
       </TableContainer>
     </>
   );

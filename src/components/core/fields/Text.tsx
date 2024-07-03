@@ -3,7 +3,7 @@ import MUITextField from "@mui/material/TextField";
 
 interface TextFieldProps {
   label: string;
-  value?: string | undefined;
+  value?: string | undefined | null;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
 }

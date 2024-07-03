@@ -1,20 +1,13 @@
 import React from "react";
-import { Container, Typography } from "@mui/material";
 
-import "./App.css";
-import SearchForm from "./components/SearchForm";
+import SearchUI from "./components/SearchUI";
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="App">
-      <Container>
-        <Typography variant="h4" gutterBottom>
-          NPI Registry Search
-        </Typography>
-        <SearchForm />
-      </Container>
+      <SearchUI />
     </div>
   );
-}
+};
 
 export default App;

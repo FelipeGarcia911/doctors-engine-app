@@ -1,11 +1,24 @@
 import React, { useState } from "react";
-import TextField from "./fields/Text";
-import NumberField from "./fields/Number";
 import { Button, Container, Grid, Typography } from "@mui/material";
-import { SearchParams, SearchResults } from "../types/types";
+
+import TextField from "./core/fields/Text";
+import NumberField from "./core/fields/Number";
+
+import {
+  SearchParams,
+  SearchResults,
+  SearchResultsAPIResponse,
+} from "../types/types";
+
 import { SearchDoctor } from "../services/SearchDoctor";
 
-const SearchForm = () => {
+interface SearchFormProps {
+  onSearchResults: (results: SearchResults[]) => void;
+}
+
+const SearchForm = (props: SearchFormProps) => {
+  const { onSearchResults } = props;
+
   const [firstName, setFirstName] = useState<string | undefined>();
   const [lastName, setLastName] = useState<string | undefined>();
   const [country, setCountry] = useState<string | undefined>();
@@ -26,8 +39,8 @@ const SearchForm = () => {
     return payload;
   };
 
-  const handleOnSuccess = (response: SearchResults) => {
-    console.log("🚀 ~ handleOnSuccess ~ response:", response)
+  const handleOnSuccess = (response: SearchResultsAPIResponse) => {
+    onSearchResults(response.results);
     setError(undefined);
   };
 

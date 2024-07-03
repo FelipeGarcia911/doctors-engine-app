@@ -18,57 +18,53 @@ export interface SearchParams {
   version?: string;
 }
 
+export interface SearchResultsAPIResponse {
+  result_count: number;
+  results: SearchResults[];
+}
+
 export interface SearchResults {
   created_epoch: string;
   enumeration_type: string;
   last_updated_epoch: string;
   number: string;
   addresses: Address[];
-  basic: BasicInfo;
+  basic: Basic;
   taxonomies: Taxonomy[];
-  identifiers: Identifier[];
 }
 
 export interface Address {
-  country_code: string;
-  country_name: string;
+  address_1: string;
   address_purpose: string;
   address_type: string;
-  address_1: string;
   city: string;
-  state: string;
+  country_code: string;
+  country_name: string;
+  fax_number?: string;
   postal_code: string;
+  state: string;
   telephone_number: string;
-  fax_number: string;
 }
 
-export interface BasicInfo {
-  first_name: string;
-  last_name: string;
-  middle_name: string;
-  credential: string;
-  sole_proprietor: string;
-  gender: string;
+export interface Basic {
+  authorized_official_first_name: string;
+  authorized_official_last_name: string;
+  authorized_official_name_prefix?: string;
+  authorized_official_name_suffix?: string;
+  authorized_official_telephone_number: string;
+  authorized_official_title_or_position: string;
   enumeration_date: string;
   last_updated: string;
+  organization_name: string;
+  organizational_subpart: string;
   status: string;
-  name_prefix: string;
-  name_suffix: string;
 }
 
 export interface Taxonomy {
   code: string;
-  taxonomy_group: string;
-  desc: string;
-  state: string;
-  license: string;
+  desc?: string | null;
+  license?: string | null;
   primary: boolean;
-}
-
-export interface Identifier {
-  code: string;
-  desc: string;
-  issuer: string;
-  identifier: string;
-  state: string;
+  state?: string | null;
+  taxonomy_group?: string;
 }

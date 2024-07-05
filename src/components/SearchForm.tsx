@@ -40,6 +40,8 @@ const SearchForm = (props: SearchFormProps) => {
       setError("Please fill at least one field");
       return;
     }
+
+    setError(null);
     onSubmit && onSubmit(payload);
   };
 
@@ -49,6 +51,7 @@ const SearchForm = (props: SearchFormProps) => {
       ...{ ...(firstName && { first_name: firstName }) },
       ...{ ...(lastName && { last_name: lastName }) },
       ...{ ...(country && { country }) },
+      ...{ ...(state && { state }) },
       ...{ ...(city && { city }) },
     };
 

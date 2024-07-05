@@ -20,14 +20,14 @@ const ResultsTable = (props: ResultsTableProps) => {
       },
       {
         Header: "First Name",
-        accessor: (row: SearchResults) =>
-          row.basic.authorized_official_first_name,
+        accessor: ({ basic }: SearchResults) =>
+          basic.authorized_official_first_name ?? basic.first_name,
         id: "authorized_official_first_name",
       },
       {
         Header: "Last Name",
-        accessor: (row: SearchResults) =>
-          row.basic.authorized_official_last_name,
+        accessor: ({ basic }: SearchResults) =>
+          basic.authorized_official_last_name ?? basic.last_name,
         id: "authorized_official_last_name",
       },
       {

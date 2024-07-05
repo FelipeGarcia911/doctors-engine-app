@@ -47,17 +47,24 @@ export interface Address {
 }
 
 export interface Basic {
-  authorized_official_first_name: string;
-  authorized_official_last_name: string;
+  authorized_official_first_name?: string;
+  authorized_official_last_name?: string;
   authorized_official_name_prefix?: string;
   authorized_official_name_suffix?: string;
-  authorized_official_telephone_number: string;
-  authorized_official_title_or_position: string;
-  enumeration_date: string;
-  last_updated: string;
-  organization_name: string;
-  organizational_subpart: string;
-  status: string;
+  authorized_official_telephone_number?: string;
+  authorized_official_title_or_position?: string;
+  certification_date?: string;
+  credential?: string;
+  enumeration_date?: string;
+  first_name?: string;
+  gender?: string;
+  last_name?: string;
+  last_updated?: string;
+  name_prefix?: string;
+  organization_name?: string;
+  organizational_subpart?: string;
+  sole_proprietor?: string;
+  status?: string;
 }
 
 export interface Taxonomy {

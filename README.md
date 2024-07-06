@@ -1,46 +1,96 @@
-# Getting Started with Create React App
+# Doctors Engine Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## General Description
 
-## Available Scripts
+The Doctors Engine Frontend is a React application built with TypeScript and Material-UI. It provides a user interface to search the National Provider Identifier (NPI) registry by entering various search parameters. The results are displayed in a table that supports sorting and filtering.
 
-In the project directory, you can run:
+## Architecture
 
-### `npm start`
+1. **Language**: TypeScript
+2. **Framework**: ReactJS
+3. **UI Library**: Material-UI
+4. **API Integration**: Axios
+5. **Build Tool**: Yarn
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Form**: Input fields for various search parameters including first name, last name, city, country code, state, and number.
+- **Search**: Sends a GET request to the backend API with the search parameters.
+- **Results Table**: Displays search results with sorting and filtering capabilities.
+- **Loading Indicator**: Shows a loader while the search request is being processed.
+- **Error Handling**: Displays error messages for invalid inputs or failed API requests.
 
-### `npm test`
+## Libraries Used
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **React**: JavaScript library for building user interfaces.
+- **Material-UI**: React components for faster and easier web development.
+- **Axios**: Promise-based HTTP client for the browser and Node.js.
+- **React-Table**: Hooks for building fast and extendable tables and data grids.
 
-### `npm run build`
+## Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Prerequisites
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Node.js v16.20.0
+- Yarn
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Installation
 
-### `npm run eject`
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/FelipeGarcia911/doctors-engine-app.git
+   ```
+2. **Navigate to the project directory**:
+   ```bash
+   cd doctors-engine-frontend
+   ```
+3. **Install dependencies**:
+   ```bash
+   yarn install
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Running the Application
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. **Start the development server**:
+   ```bash
+   yarn start
+   ```
+2. **Open your browser and navigate to**: `http://localhost:3000`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Usage
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. **Fill in the search form**: Enter the desired search parameters (e.g., first name, last name, city, etc.).
+2. **Click the search button**: Sends a request to the backend API with the provided parameters.
+3. **View results in the table**: The search results are displayed in a sortable and filterable table.
+4. **Filter and sort**: Use the table headers to sort and filter the results.
 
-## Learn More
+## Example
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. **Search by first name and city**:
+   - **First Name**: John
+   - **City**: New York
+   - **Click Search**
+2. **View results**: The table displays results matching the search criteria.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## API Integration
+
+The frontend communicates with the backend API to fetch search results. The backend API is described in its own README file.
+
+### Axios Service
+
+The application uses Axios to handle API requests. The Axios service is configured to handle GET and POST requests, handle errors, and unpack JSON responses.
+
+## Deployment
+
+The frontend application can be deployed to any static site hosting service such as AWS S3, Netlify, or Vercel.
+
+## Possible Improvements
+
+- **Enhanced Error Handling**: Improve error messages and handling for various scenarios.
+- **Pagination**: Add pagination to the results table for better performance with large datasets.
+- **Form Validation**: Implement more comprehensive form validation.
+- **Advanced Search**: Add advanced search features such as fuzzy search and semantic matching.
+
+---
+
+This frontend application provides an intuitive interface for searching the NPI registry, leveraging modern React techniques and Material-UI components for a responsive and user-friendly experience.

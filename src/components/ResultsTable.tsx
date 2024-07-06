@@ -15,6 +15,10 @@ const ResultsTable = (props: ResultsTableProps) => {
   const columns: Column<SearchResults>[] = React.useMemo(
     () => [
       {
+        Header: "#",
+        accessor: (row, index) => index + 1,
+      },
+      {
         Header: "NPI Number",
         accessor: "number",
       },
@@ -50,6 +54,11 @@ const ResultsTable = (props: ResultsTableProps) => {
         Header: "State",
         accessor: (row: SearchResults) => row.addresses[0]?.state || "",
         id: "state",
+      },
+      {
+        Header: "Score",
+        accessor: (row: SearchResults) => row.score?.toFixed(5) ?? "N/A",
+        id: "score",
       },
     ],
     []

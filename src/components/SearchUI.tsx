@@ -9,6 +9,7 @@ import {
   SearchResultsAPIResponse,
 } from "../types/types";
 import { SearchDoctor } from "../services/SearchDoctor";
+import { SearchType } from "../constants/enums";
 
 const SearchUI: React.FC = () => {
   const [data, setData] = useState<SearchResults[]>([]);
@@ -24,10 +25,10 @@ const SearchUI: React.FC = () => {
     setError(undefined);
   };
 
-  const handleOnSubmit = async (payload: SearchParams) => {
+  const handleOnSubmit = async (payload: SearchParams, type: SearchType) => {
     try {
       setLoading(true);
-      const response = await SearchDoctor(payload);
+      const response = await SearchDoctor(payload, type);
       if (response) {
         handleOnSuccess(response);
       } else {

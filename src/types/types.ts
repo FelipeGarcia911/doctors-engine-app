@@ -31,6 +31,7 @@ export interface SearchResults {
   addresses: Address[];
   basic: Basic;
   taxonomies: Taxonomy[];
+  score?: number;
 }
 
 export interface Address {

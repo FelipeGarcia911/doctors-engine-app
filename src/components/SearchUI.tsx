@@ -57,19 +57,21 @@ const SearchUI: React.FC = () => {
   };
 
   return (
-    <Container>
-      <Typography variant="h4" textAlign="center" margin={2}>
-        NPI Registry Search
-      </Typography>
-      <SearchForm onSubmit={handleOnSubmit} loading={loading} />
-      <Box mt={4} />
-      <ResultsTable data={data} loading={loading} />
-      <Toast
-        open={!!error}
-        message={error}
-        severity={"error"}
-        onClose={handleOnClose}
-      />
+    <Container style={{ backgroundColor: "white" }}>
+      <Box py={2} mt={2} mb={5}>
+        <Typography variant="h4" textAlign="center" margin={2}>
+          NPI Registry Search
+        </Typography>
+        <SearchForm onSubmit={handleOnSubmit} loading={loading} />
+        <Box mt={4} />
+        <ResultsTable data={data} loading={loading} />
+        <Toast
+          open={!!error}
+          message={error}
+          severity={"error"}
+          onClose={handleOnClose}
+        />
+      </Box>
     </Container>
   );
 };

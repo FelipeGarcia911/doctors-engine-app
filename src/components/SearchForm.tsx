@@ -9,6 +9,7 @@ import { SearchParams } from "../types/types";
 import Button from "./core/Button";
 import SelectField from "./core/fields/Select";
 import { SearchType } from "../constants/enums";
+import validate from "../utils/validation";
 
 interface SearchFormProps {
   onSubmit: (payload: SearchParams, type: SearchType) => void;
@@ -27,7 +28,7 @@ const SearchForm = (props: SearchFormProps) => {
 
   const [firstName, setFirstName] = useState<string | null>();
   const [lastName, setLastName] = useState<string | null>();
-  const [country, setCountry] = useState<string | null>();
+  const [country_code, setCountryCode] = useState<string | null>();
   const [city, setCity] = useState<string | null>();
   const [state, setState] = useState<string | null>();
   const [number, setNumber] = useState<number | null>();
@@ -44,20 +45,12 @@ const SearchForm = (props: SearchFormProps) => {
     []
   );
 
-  const validate = (payload: SearchParams) => {
-    let result = true;
-    if (Object.keys(payload).length <= 1) {
-      result = false;
-    }
-    return result;
-  };
-
   const handleOnSubmit = async () => {
     const payload = getPayload();
 
-    const isValid = validate(payload);
-    if (!isValid) {
-      setError("Please fill at least one field");
+    const { hasError, message } = validate(payload);
+    if (hasError) {
+      setError(message);
       return;
     }
 
@@ -70,7 +63,7 @@ const SearchForm = (props: SearchFormProps) => {
       ...{ ...(number && { number: number.toString() }) },
       ...{ ...(firstName && { first_name: firstName }) },
       ...{ ...(lastName && { last_name: lastName }) },
-      ...{ ...(country && { country }) },
+      ...{ ...(country_code && { country_code }) },
       ...{ ...(state && { state }) },
       ...{ ...(city && { city }) },
       ...{ ...(limit && { limit: parseInt(limit) }) },
@@ -105,9 +98,9 @@ const SearchForm = (props: SearchFormProps) => {
         </Grid>
         <Grid item xs={4}>
           <TextField
-            label="Country"
-            value={country}
-            onChange={(e) => setCountry(e.target.value)}
+            label="Country Code"
+            value={country_code}
+            onChange={(e) => setCountryCode(e.target.value)}
           />
         </Grid>
         <Grid item xs={4}>

@@ -21,6 +21,14 @@ export interface SearchParams {
 export interface SearchResultsAPIResponse {
   result_count: number;
   results: SearchResults[];
+  message?: string;
+  errors?: SearchResultsAPIResponseError[];
+}
+
+export interface SearchResultsAPIResponseError {
+  description: string;
+  field: string;
+  number: string;
 }
 
 export interface SearchResults {
@@ -75,4 +83,9 @@ export interface Taxonomy {
   primary: boolean;
   state?: string | null;
   taxonomy_group?: string;
+}
+
+export interface ValidationResult {
+  hasError?: boolean
+  message?: string
 }

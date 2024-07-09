@@ -10,6 +10,7 @@ import {
 } from "../types/types";
 import { SearchDoctor } from "../services/SearchDoctor";
 import { SearchType } from "../constants/enums";
+import Toast from "./core/Toast";
 
 const SearchUI: React.FC = () => {
   const [data, setData] = useState<SearchResults[]>([]);
@@ -25,6 +26,20 @@ const SearchUI: React.FC = () => {
     setError(undefined);
   };
 
+  const handleOnError = (err: SearchResultsAPIResponse) => {
+    const { message, errors } = err;
+    let msg = message;
+    if (errors) {
+      msg = errors
+        .map(({ description }, idx) => `${idx + 1}. ${description}`)
+        .join(". \n");
+    }
+    setError(msg);
+    setData([]);
+  };
+
+  const handleOnClose = () => setError(undefined);
+
   const handleOnSubmit = async (payload: SearchParams, type: SearchType) => {
     try {
       setLoading(true);
@@ -34,9 +49,8 @@ const SearchUI: React.FC = () => {
       } else {
         setError("No results found");
       }
-    } catch (error) {
-      console.error("Error handleOnSubmit:", error);
-      setError("An error occurred");
+    } catch (error: any) {
+      handleOnError(error);
     } finally {
       setLoading(false);
     }
@@ -50,6 +64,12 @@ const SearchUI: React.FC = () => {
       <SearchForm onSubmit={handleOnSubmit} loading={loading} />
       <Box mt={4} />
       <ResultsTable data={data} loading={loading} />
+      <Toast
+        open={!!error}
+        message={error}
+        severity={"error"}
+        onClose={handleOnClose}
+      />
     </Container>
   );
 };

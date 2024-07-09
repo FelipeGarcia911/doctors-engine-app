@@ -8,7 +8,8 @@ import { SearchParams } from "../types/types";
 import Button from "./core/Button";
 import SelectField from "./core/fields/Select";
 import { SearchType } from "../constants/enums";
-import validate from "../utils/validation";
+import validator from "../schemas/validator";
+import schema from "../schemas/search-params";
 
 interface SearchFormProps {
   onSubmit: (payload: SearchParams, type: SearchType) => void;
@@ -48,7 +49,7 @@ const SearchForm = (props: SearchFormProps) => {
   const handleOnSubmit = async () => {
     const payload = getPayload();
 
-    const { hasError, message } = validate(payload);
+    const { hasError, message } = validator(payload, schema);
     if (hasError) {
       setError(message);
       return;

@@ -27,12 +27,14 @@ const SearchUI: React.FC = () => {
   };
 
   const handleOnError = (err: SearchResultsAPIResponse) => {
-    const { message, errors } = err;
+    const { message, errors, error } = err;
     let msg = message;
     if (errors) {
       msg = errors
         .map(({ description }, idx) => `${idx + 1}. ${description}`)
         .join(". \n");
+    } else if (error) {
+      msg = error;
     }
     setError(msg);
     setData([]);

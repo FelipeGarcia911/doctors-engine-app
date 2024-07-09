@@ -23,6 +23,7 @@ export interface SearchResultsAPIResponse {
   results: SearchResults[];
   message?: string;
   errors?: SearchResultsAPIResponseError[];
+  error?: string; // TODO: update API to return error just one error object
 }
 
 export interface SearchResultsAPIResponseError {
@@ -88,4 +89,5 @@ export interface Taxonomy {
 export interface ValidationResult {
   hasError?: boolean
   message?: string
+  params?: Object | null
 }

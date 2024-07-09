@@ -10,6 +10,10 @@ const ENDPOINTS = {
   [SearchType.EMBEDDINGS]: `${BASE_ENDPOINT}/embeddings`,
 };
 
+const handleOn400Error = (error: any) => {
+  return error.response.data;
+};
+
 export const SearchDoctor = async (
   params: SearchParams,
   type: SearchType
@@ -18,9 +22,13 @@ export const SearchDoctor = async (
   try {
     const URL = ENDPOINTS[type];
     response = await get(URL, { params });
-  } catch (error) {
-    console.error("Error SearchDoctor:", error);
-    throw error;
+  } catch (error: any) {
+    if (error.code === "ERR_BAD_REQUEST") {
+      throw handleOn400Error(error);
+    } else {
+      throw error;
+    }
   }
+
   return response;
 };

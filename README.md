@@ -48,6 +48,13 @@ The Doctors Engine Frontend is a React application built with TypeScript and Mat
    ```bash
    yarn install
    ```
+4. **Fill the env variables**
+   Use the `.env.example` as guide to crete the `.env` file. Local development suggestion:
+
+```
+PORT=3001
+REACT_APP_API_URL=http://localhost:3000
+```
 
 ### Running the Application
 
@@ -55,14 +62,15 @@ The Doctors Engine Frontend is a React application built with TypeScript and Mat
    ```bash
    yarn start
    ```
-2. **Open your browser and navigate to**: `http://localhost:3000`
+2. **Open your browser and navigate to**: `http://localhost:3001`
 
 ## Usage
 
 1. **Fill in the search form**: Enter the desired search parameters (e.g., first name, last name, city, etc.).
-2. **Click the search button**: Sends a request to the backend API with the provided parameters.
-3. **View results in the table**: The search results are displayed in a sortable and filterable table.
-4. **Filter and sort**: Use the table headers to sort and filter the results.
+2. **Configure your search**: You can select the total results and the search type: Simple, Fuzzy or Embeddings.
+3. **Click the search button**: Sends a request to the backend API with the provided parameters.
+4. **View results in the table**: The search results are displayed in a sortable and filterable table.
+5. **Filter and sort**: Use the table headers to sort and filter the results.
 
 ## Example
 
@@ -74,23 +82,16 @@ The Doctors Engine Frontend is a React application built with TypeScript and Mat
 
 ## API Integration
 
-The frontend communicates with the backend API to fetch search results. The backend API is described in its own README file.
-
-### Axios Service
-
-The application uses Axios to handle API requests. The Axios service is configured to handle GET and POST requests, handle errors, and unpack JSON responses.
+The frontend communicates with the backend API to fetch search results.
 
 ## Deployment
 
-The frontend application can be deployed to any static site hosting service such as AWS S3, Netlify, or Vercel.
+The frontend application can be deployed to any static site hosting service. We're using AWS Amplify.
 
 ## Possible Improvements
 
 - **Enhanced Error Handling**: Improve error messages and handling for various scenarios.
 - **Pagination**: Add pagination to the results table for better performance with large datasets.
 - **Form Validation**: Implement more comprehensive form validation.
-- **Advanced Search**: Add advanced search features such as fuzzy search and semantic matching.
-
+- **Prettier and Linter**: Install and configure several code tools.
 ---
-
-This frontend application provides an intuitive interface for searching the NPI registry, leveraging modern React techniques and Material-UI components for a responsive and user-friendly experience.

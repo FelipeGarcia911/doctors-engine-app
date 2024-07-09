@@ -1,8 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { Box, Container, Grid, Typography } from "@mui/material";
 
-import TextField from "./core/fields/Text";
-import NumberField from "./core/fields/Number";
+import InputField from "./core/fields/Input";
 
 import { SearchParams } from "../types/types";
 
@@ -21,17 +20,13 @@ const LIMITS = [
   { label: "10", value: "10" },
   { label: "15", value: "15" },
   { label: "20", value: "20" },
+  { label: "50", value: "50" },
 ];
 
 const SearchForm = (props: SearchFormProps) => {
   const { onSubmit, loading } = props;
 
-  const [firstName, setFirstName] = useState<string | null>();
-  const [lastName, setLastName] = useState<string | null>();
-  const [country_code, setCountryCode] = useState<string | null>();
-  const [city, setCity] = useState<string | null>();
-  const [state, setState] = useState<string | null>();
-  const [number, setNumber] = useState<number | null>();
+  const [data, setData] = useState<SearchParams>({});
   const [error, setError] = useState<string | null>();
 
   const [type, setType] = useState<SearchType>(SearchType.SIMPLE);
@@ -44,6 +39,11 @@ const SearchForm = (props: SearchFormProps) => {
       }),
     []
   );
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleOnSubmit = async () => {
     const payload = getPayload();
@@ -59,68 +59,99 @@ const SearchForm = (props: SearchFormProps) => {
   };
 
   const getPayload = () => {
+    const {
+      number,
+      first_name,
+      last_name,
+      country_code,
+      state,
+      city,
+      postal_code,
+    } = data || {};
     const payload: SearchParams = {
       ...{ ...(number && { number: number.toString() }) },
-      ...{ ...(firstName && { first_name: firstName }) },
-      ...{ ...(lastName && { last_name: lastName }) },
+      ...{ ...(first_name && { first_name }) },
+      ...{ ...(last_name && { last_name }) },
       ...{ ...(country_code && { country_code }) },
       ...{ ...(state && { state }) },
       ...{ ...(city && { city }) },
+      ...{ ...(postal_code && { postal_code }) },
       ...{ ...(limit && { limit: parseInt(limit) }) },
     };
 
     return payload;
   };
 
+  const handleOnClear = () => {
+    setData({});
+    setError(null);
+  };
+
   return (
     <Container>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <NumberField
+          <InputField
+            name="number"
+            type="number"
             label="Number"
-            value={number}
-            onChange={(e) => setNumber(Number(e.target.value))}
+            value={data?.number || ""}
+            onChange={(e) => handleOnChange(e)}
           />
         </Grid>
-        <Grid item xs={6}>
-          <TextField
+        <Grid item xs={12} md={6}>
+          <InputField
+            name="first_name"
             label="First Name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            value={data?.first_name || ""}
+            onChange={(e) => handleOnChange(e)}
           />
         </Grid>
-        <Grid item xs={6}>
-          <TextField
+        <Grid item xs={12} md={6}>
+          <InputField
+            name="last_name"
             label="Last Name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            value={data?.last_name || ""}
+            onChange={(e) => handleOnChange(e)}
           />
         </Grid>
-        <Grid item xs={4}>
-          <TextField
+        <Grid item xs={12} md={3}>
+          <InputField
+            name="country_code"
             label="Country Code"
-            value={country_code}
-            onChange={(e) => setCountryCode(e.target.value)}
+            value={data?.country_code || ""}
+            onChange={(e) => handleOnChange(e)}
           />
         </Grid>
-        <Grid item xs={4}>
-          <TextField
+        <Grid item xs={12} md={3}>
+          <InputField
+            name="state"
             label="State"
-            value={state}
-            onChange={(e) => setState(e.target.value)}
+            value={data?.state || ""}
+            onChange={(e) => handleOnChange(e)}
           />
         </Grid>
-        <Grid item xs={4}>
-          <TextField
+        <Grid item xs={12} md={3}>
+          <InputField
+            name="city"
             label="City"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
+            value={data?.city || ""}
+            onChange={(e) => handleOnChange(e)}
+          />
+        </Grid>
+
+        <Grid item xs={12} md={3}>
+          <InputField
+            name="postal_code"
+            label="Postal Code"
+            value={data?.postal_code || ""}
+            onChange={(e) => handleOnChange(e)}
           />
         </Grid>
 
         <Box mt={15} />
 
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <SelectField
             onChange={(e) => setLimit(e.target.value)}
             value={limit}
@@ -128,7 +159,7 @@ const SearchForm = (props: SearchFormProps) => {
             options={LIMITS}
           ></SelectField>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <SelectField
             onChange={(e) => setType(e.target.value as SearchType)}
             value={type}
@@ -139,7 +170,7 @@ const SearchForm = (props: SearchFormProps) => {
         <Grid item xs={12}>
           {error ? <Typography color="error">{error}</Typography> : null}
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} lg={10}>
           <Button
             onClick={handleOnSubmit}
             loading={loading}
@@ -147,6 +178,16 @@ const SearchForm = (props: SearchFormProps) => {
             fullWidth
           >
             Search
+          </Button>
+        </Grid>
+        <Grid item xs={12} lg={2}>
+          <Button
+            onClick={handleOnClear}
+            loading={loading}
+            variant="outlined"
+            fullWidth
+          >
+            Clear
           </Button>
         </Grid>
       </Grid>

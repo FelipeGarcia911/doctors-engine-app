@@ -3,16 +3,20 @@ import MUITextField from "@mui/material/TextField";
 
 interface TextFieldProps {
   label: string;
-  value?: string | undefined | null;
+  value?: string | number | undefined | null;
+  name?: string;
+  type?: "text" | "number" | "password" | undefined;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
 }
 
-const TextField = (props: TextFieldProps) => {
-  const { label, value, onChange, error } = props;
+const InputField = (props: TextFieldProps) => {
+  const { label, value, onChange, error, name, type = "text" } = props;
 
   return (
     <MUITextField
+      type={type}
+      name={name}
       label={label}
       value={value}
       onChange={onChange}
@@ -24,4 +28,4 @@ const TextField = (props: TextFieldProps) => {
   );
 };
 
-export default TextField;
+export default InputField;

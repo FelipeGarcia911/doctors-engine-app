@@ -11,7 +11,8 @@ const isNumberSize = (number?: string | undefined) => {
 const isUSCountryCode = (country_code?: string | undefined) =>
   country_code?.toLowerCase() === "us";
 
-const isValidCode = (code?: string | undefined) => code && code?.length === 2;
+const isValidCode = (code?: string | undefined) =>
+  code ? code?.length === 2 : true;
 
 const isNotEmpty = (value?: string | undefined) => value && value?.length > 0;
 

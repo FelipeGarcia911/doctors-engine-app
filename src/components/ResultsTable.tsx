@@ -41,11 +41,6 @@ const ResultsTable = (props: ResultsTableProps) => {
         id: "authorized_official_title_or_position",
       },
       {
-        Header: "City",
-        accessor: (row: SearchResults) => row.addresses[0]?.city || "",
-        id: "city",
-      },
-      {
         Header: "Country Code",
         accessor: (row: SearchResults) => row.addresses[0]?.country_code || "",
         id: "country_code",
@@ -54,6 +49,16 @@ const ResultsTable = (props: ResultsTableProps) => {
         Header: "State",
         accessor: (row: SearchResults) => row.addresses[0]?.state || "",
         id: "state",
+      },
+      {
+        Header: "City",
+        accessor: (row: SearchResults) => row.addresses[0]?.city || "",
+        id: "city",
+      },
+      {
+        Header: "Postal Code",
+        accessor: (row: SearchResults) => row.addresses[0]?.postal_code || "",
+        id: "postal_code",
       },
       {
         Header: "Score",
